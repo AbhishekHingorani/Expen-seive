@@ -13,11 +13,13 @@ import { LbdModule } from './lbd/lbd.module';
 import { AppComponent } from './app.component';
 
 import { HomeComponent } from './home/home.component';
+import { AddProductComponent } from './add-product/add-product.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,

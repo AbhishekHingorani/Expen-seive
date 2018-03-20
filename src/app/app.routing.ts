@@ -4,9 +4,11 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
+import { AddProductComponent } from './add-product/add-product.component';
 
 const routes: Routes =[
     { path: 'dashboard',      component: HomeComponent },
+    { path: 'add-product',      component: AddProductComponent },
     { path: '',          redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 
