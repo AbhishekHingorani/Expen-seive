@@ -20,16 +20,17 @@
               <br>
               <div class="form-group">
 
-                <label for="">Company : </label>
-                <select name="contactMethod" id="contactMethod" class="form-control">
+                <label for="company">Company : </label> 
+                <ng-select2 
+                  [data]="exampleData"
+                  [options]="options"
+                  [width]="215"  
+                  id="company"
+                  style="width:100% !important"
+                  (valueChanged)="companyValueChanged($event)" 
+                >
+                </ng-select2>
 
-                  <option value="">-select-</option>
-                  <option value="">Raymond</option>
-                  <option value="">Blue Budha</option>
-                  <option value="">Jade Blue</option>
-                  <option value="">Manyavar</option>
-
-                </select>
               </div>
 
               <input type="text" value="" placeholder="Quantity" class="form-control" />

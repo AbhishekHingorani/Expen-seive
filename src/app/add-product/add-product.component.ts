@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Select2OptionData } from 'ng-select2/ng-select2/ng-select2.interface';
+import { GetCompaniesService } from './../services/get-companies.service';   
 
 @Component({
   selector: 'add-product',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddProductComponent implements OnInit {
 
-  constructor() { }
+  public exampleData: Array<Select2OptionData>;
+  public options: Select2Options;
+
+  constructor(private service : GetCompaniesService) { }
 
   ngOnInit() {
+    this.service.getCompanies()
+      .subscribe(response => {
+        console.log(response.json());
+        this.exampleData = response.json();
+        this.options = {
+          placeholder:"Companies",
+          allowClear:true
+        }
+      });
   }
 
+  public companyValueChanged(event){
+    console.log(event);
+  }
 }

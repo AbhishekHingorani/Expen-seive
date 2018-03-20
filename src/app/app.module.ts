@@ -14,6 +14,8 @@ import { AppComponent } from './app.component';
 
 import { HomeComponent } from './home/home.component';
 import { AddProductComponent } from './add-product/add-product.component';
+import { NgSelect2Module } from 'ng-select2';
+import { GetCompaniesService } from './services/get-companies.service';
 
 @NgModule({
   declarations: [
@@ -30,9 +32,12 @@ import { AddProductComponent } from './add-product/add-product.component';
     SidebarModule,
     RouterModule,
     AppRoutingModule,
-    LbdModule
+    LbdModule,
+    NgSelect2Module
   ],
-  providers: [],
+  providers: [
+    GetCompaniesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
