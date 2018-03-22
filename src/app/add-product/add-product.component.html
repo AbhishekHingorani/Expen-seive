@@ -9,20 +9,21 @@
           <h4 _ngcontent-c2="" class="title">ADD PRODUCT</h4>
         </div>
         <div>
-          <form>
+          <form #productForm="ngForm" (ngSubmit)="log(productForm)">
             <div class="temp" style="margin: 0px 5%">
 
               <br>
 
-              <input type="text" value="" placeholder="Product Name" class="form-control" />
+              <input ngModel name="ProductName" type="text" value="" placeholder="Product Name" class="form-control" />
               <br>
-              <input type="text" value="" placeholder="HSN Code" class="form-control" />
+              <input ngModel name="hsnCode" type="text" value="" placeholder="HSN Code" class="form-control" data-parsley-pattern="^[0-9 ,\s]*$" title="only character" pattern="^[0-9 , \s]*$"/>
               <br>
               <div class="form-group">
 
                 <label for="company">Company : </label> 
-                <ng-select2 
-                  [data]="exampleData"
+                <ng-select2
+                  ngModel name="companyName" 
+                  [data]="companies"
                   [options]="options"
                   [width]="215"  
                   id="company"
@@ -33,20 +34,21 @@
 
               </div>
 
-              <input type="text" value="" placeholder="Quantity" class="form-control" />
+              <input ngModel name="productStock" type="text" value="" placeholder="Stock" class="form-control" />
               <br>
               <div class="form-group">
 
                 <label>Product Type : </label>
-                <select name="contactMethod" id="contactMethod" class="form-control">
-
-                  <option value="">-select-</option>
-                  <option value="">Cotton</option>
-                  <option value="">Silk</option>
-                  <option value="">Linen</option>
-
-
-                </select>
+                <ng-select2
+                  ngModel name="productType" 
+                  [data]="productTypes"
+                  [options]="options"
+                  [width]="215"  
+                  id="company"
+                  style="width:100% !important"
+                  (valueChanged)="companyValueChanged($event)" 
+                >
+                </ng-select2>
               </div>
               <form action="">
                 <!-- <b> Option 3:</b>  -->
@@ -57,7 +59,7 @@
               <br>
               <input type="text" value="" placeholder="Price" class="form-control" />
               <br>
-              <button class="btn btn-info btn-fill pull-right" type="submit">Save</button>
+              <button class="btn btn-info btn-fill pull-right" [disabled]="!productForm.valid" type="submit">Save</button>
               <br>
               <br>
               <br>
