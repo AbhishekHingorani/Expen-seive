@@ -13,15 +13,17 @@ import { LbdModule } from './lbd/lbd.module';
 import { AppComponent } from './app.component';
 
 import { HomeComponent } from './home/home.component';
-import { AddProductComponent } from './add-product/add-product.component';
+import { AddProductComponent } from './product/add-product/add-product.component';
 import { NgSelect2Module } from 'ng-select2';
 import { GetCompaniesService } from './services/get-companies.service';
+import { AddCustomerComponent } from './customer/add-customer/add-customer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AddProductComponent
+    AddProductComponent,
+    AddCustomerComponent
   ],
   imports: [
     BrowserModule,

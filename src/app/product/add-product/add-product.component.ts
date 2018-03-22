@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Select2OptionData } from 'ng-select2/ng-select2/ng-select2.interface';
-import { GetCompaniesService } from './../services/get-companies.service';   
+import { GetCompaniesService } from './../../services/get-companies.service';   
 import { Http } from '@angular/http';
 import { NgForm } from '@angular/forms';
 
@@ -21,8 +21,10 @@ export class AddProductComponent implements OnInit {
     this.service.getCompanies()
       .subscribe(response => {
         console.log(response.json().product_type);
-        this.companies = response.json().company;
-        this.productTypes = response.json().product_type;
+        this.companies = response.json();
+        this.productTypes = response.json();
+        //this.companies = response.json().company;
+        //this.productTypes = response.json().product_type;
         this.options = {
           allowClear:true
         }

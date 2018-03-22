@@ -88,6 +88,9 @@ export class NavbarComponent implements OnInit{
               else if(title == "Dashboard"){
                 this.menuItems = DEFAULT_ROUTES;
               }
+              else if(title == "Customer"){
+                this.menuItems = DEFAULT_ROUTES;
+              }
               return title;
           }
       }

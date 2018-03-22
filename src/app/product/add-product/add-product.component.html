@@ -1,0 +1,103 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="header">
+            <h4 class="title">Edit Profile</h4>
+          </div>
+          <div class="content">
+            <form #productForm="ngForm" (ngSubmit)="log(productForm)">
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="form-group">
+                    <label>Product Name</label>
+                    <input ngModel name="ProductName" type="text" class="form-control" placeholder="Name" value="">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>HSN Code</label>
+                    <input ngModel name="hsnCode" type="number" class="form-control" placeholder="00000000" value="">
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Company</label>
+                    <ng-select2 
+                      ngModel 
+                      name="companyName" 
+                      [data]="companies" 
+                      [options]="options" 
+                      [width]="215" id="company" 
+                      style="width:100% !important"
+                      (valueChanged)="companyValueChanged($event)">
+                    </ng-select2>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Product Type</label>
+                    <ng-select2
+                      ngModel 
+                      name="productType" 
+                      [data]="productTypes"
+                      [options]="options"
+                      [width]="215"  
+                      id="company"
+                      style="width:100% !important"
+                      (valueChanged)="companyValueChanged($event)" >
+                    </ng-select2>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <input ngModel type="radio" name="optionsRadios" data-toggle="radio"    id="optionsRadios1" value="meter" checked>
+                    <i></i>Meter &nbsp; &nbsp;
+                    <input ngModel type="radio" name="optionsRadios" data-toggle="radio" id="optionsRadios2" value="pcs">
+                    <i></i>Quantity
+
+                    <input ngModel name="quantity" type="text" class="form-control" placeholder="How many Mtr/Pcs..." value="">
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Rate (per unit)</label>
+                    <input ngModel name="productPrice" type="text" class="form-control" placeholder="Price(₹)" value="">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Total</label>
+                    <input type="text" class="form-control" placeholder="Total" disabled>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Re-Order Level</label>
+                    <input ngModel name="reorderLevel" type="text" class="form-control" placeholder="Value">
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-info btn-fill pull-right">Add</button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
