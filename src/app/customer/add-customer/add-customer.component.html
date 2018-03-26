@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-12">
         <div class="card">
           <div class="header">
             <h4 class="title">Add Your Detail</h4>
@@ -9,21 +9,34 @@
           <div class="content">
             <form #addCustomerForm="ngForm" (ngSubmit)="addCustomer(addCustomerForm)">
               <div class="row">
+                <!--customer/seller-->
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Select</label>
+                    <br/>
+                    <input ngModel type="radio" name="optionsRadios" data-toggle="radio" id="optionsRadios1" value="s"> Seller &nbsp; &nbsp;
+                    <input ngModel type="radio" name="optionsRadios" data-toggle="radio" id="optionsRadios2" value="c"> Customer
+                  </div>
+                </div>
+              </div>
+              <div class="row">
                 <div class="col-md-5">
                   <div class="form-group">
                     <label>Name</label>
-                    
+
                     <input ngModel name="customerName" list="browsers" class="form-control" placeholder="Customer/Company Name..." autocomplete="off">
 
                     <datalist id="browsers">
                       <option value="Internet Explorer">
-                      <option value="Firefox">
-                      <option value="Chrome">
-                      <option value="Opera">
-                      <option value="Safari">
+                        <option value="Firefox">
+                          <option value="Chrome">
+                            <option value="Opera">
+                              <option value="Safari">
                     </datalist>
                   </div>
                 </div>
+
                 <!-- <div class="col-md-3">
                                     <div class="form-group">
                                        <label>Username</label>
@@ -84,7 +97,7 @@
               </div>
 
 
-              <button type="submit" class="btn btn-info btn-fill pull-right">DONE</button>
+              <button type="submit" class="btn btn-info btn-fill pull-right">Add</button>
               <div class="clearfix"></div>
             </form>
           </div>

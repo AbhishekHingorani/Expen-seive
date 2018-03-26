@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Select2OptionData } from 'ng-select2/ng-select2/ng-select2.interface';
-import { GetCompaniesService } from './../../services/get-companies.service';   
+import { GetCompaniesService } from './../../services/get-companies.service';
 import { Http } from '@angular/http';
 import { NgForm } from '@angular/forms';
 
@@ -15,7 +15,7 @@ export class AddProductComponent implements OnInit {
   public productTypes: Array<Select2OptionData>;
   public options: Select2Options;
 
-  constructor(private service : GetCompaniesService, private http : Http) { }
+  constructor(private service: GetCompaniesService, private http: Http) { }
 
   ngOnInit() {
     this.service.getCompanies()
@@ -26,24 +26,20 @@ export class AddProductComponent implements OnInit {
         //this.companies = response.json().company;
         //this.productTypes = response.json().product_type;
         this.options = {
-          allowClear:true
+          allowClear: true
         }
       });
   }
 
-  public companyValueChanged(event){
+  public companyValueChanged(event) {
     console.log(event);
   }
 
-  log(form :NgForm)
-  {
-    let jsonData = JSON.stringify(form.value);
-    console.log(jsonData);
-    console.log("<----------------------->")
-    this.http.post('http://10.100.70.24/expen_seive/add_product_insert.php', jsonData)
-      .subscribe((data)=>{
+  submit(form: NgForm) {
+    let newProductJsonData = JSON.stringify(form.value);
+    this.service.postNewProductsData(newProductJsonData)
+      .subscribe((data) => {
         console.log(data);
-        
       });
   }
 }

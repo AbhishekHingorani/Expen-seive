@@ -6,11 +6,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AddProductComponent } from './product/add-product/add-product.component';
 import { AddCustomerComponent } from './customer/add-customer/add-customer.component';
+import { AddVoucherComponent } from './voucher/add-voucher/add-voucher.component';
 
 const routes: Routes =[
     { path: 'dashboard',      component: HomeComponent },
     { path: 'add-product',      component: AddProductComponent },
     { path: 'add-customer',      component: AddCustomerComponent },
+    { path: 'add-voucher',      component: AddVoucherComponent },
     { path: '',          redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 

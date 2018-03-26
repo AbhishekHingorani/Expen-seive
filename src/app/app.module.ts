@@ -17,13 +17,16 @@ import { AddProductComponent } from './product/add-product/add-product.component
 import { NgSelect2Module } from 'ng-select2';
 import { GetCompaniesService } from './services/get-companies.service';
 import { AddCustomerComponent } from './customer/add-customer/add-customer.component';
+import { AddVoucherComponent } from './voucher/add-voucher/add-voucher.component';
+import { AppSettings } from './services/app-settings.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AddProductComponent,
-    AddCustomerComponent
+    AddCustomerComponent,
+    AddVoucherComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,8 @@ import { AddCustomerComponent } from './customer/add-customer/add-customer.compo
     NgSelect2Module
   ],
   providers: [
-    GetCompaniesService
+    GetCompaniesService,
+    AppSettings
   ],
   bootstrap: [AppComponent]
 })
