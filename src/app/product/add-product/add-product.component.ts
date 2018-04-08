@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Select2OptionData } from 'ng-select2/ng-select2/ng-select2.interface';
-import { GetCompaniesService } from './../../services/get-companies.service';
-import { Http } from '@angular/http';
+import { BackEndCalls } from './../../services/backendcalls.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -15,7 +14,7 @@ export class AddProductComponent implements OnInit {
   public productTypes: Array<Select2OptionData>;
   public options: Select2Options;
 
-  constructor(private service: GetCompaniesService, private http: Http) { }
+  constructor(private service: BackEndCalls) { }
 
   ngOnInit() {
     this.service.getCompanies()
@@ -23,8 +22,6 @@ export class AddProductComponent implements OnInit {
         console.log(response.json().product_type);
         this.companies = response.json();
         this.productTypes = response.json();
-        //this.companies = response.json().company;
-        //this.productTypes = response.json().product_type;
         this.options = {
           allowClear: true
         }

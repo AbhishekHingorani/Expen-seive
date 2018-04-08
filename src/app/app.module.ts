@@ -15,10 +15,11 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AddProductComponent } from './product/add-product/add-product.component';
 import { NgSelect2Module } from 'ng-select2';
-import { GetCompaniesService } from './services/get-companies.service';
 import { AddCustomerComponent } from './customer/add-customer/add-customer.component';
 import { AddVoucherComponent } from './voucher/add-voucher/add-voucher.component';
 import { AppSettings } from './services/app-settings.service';
+import { InvoiceComponent } from './invoice/invoice.component';
+import { BackEndCalls } from './services/backendcalls.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AppSettings } from './services/app-settings.service';
     HomeComponent,
     AddProductComponent,
     AddCustomerComponent,
-    AddVoucherComponent
+    AddVoucherComponent,
+    InvoiceComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,7 @@ import { AppSettings } from './services/app-settings.service';
     NgSelect2Module
   ],
   providers: [
-    GetCompaniesService,
+    BackEndCalls,
     AppSettings
   ],
   bootstrap: [AppComponent]
