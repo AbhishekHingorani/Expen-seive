@@ -8,6 +8,9 @@ import { AddProductComponent } from './product/add-product/add-product.component
 import { AddCustomerComponent } from './customer/add-customer/add-customer.component';
 import { AddVoucherComponent } from './voucher/add-voucher/add-voucher.component';
 import { InvoiceComponent } from './invoice/invoice.component';
+import { AddAccountingEntityComponent } from './account-entity/add-accounting-entity/add-accounting-entity.component';
+import { AddProductTypeComponent } from './product/add-product-type/add-product-type.component';
+import { ProductManagerComponent } from './product/product-manager/product-manager.component';
 
 const routes: Routes =[
     { path: 'dashboard',      component: HomeComponent },
@@ -15,6 +18,9 @@ const routes: Routes =[
     { path: 'add-customer',      component: AddCustomerComponent },
     { path: 'add-voucher',      component: AddVoucherComponent },
     { path: 'invoice',      component: InvoiceComponent},
+    { path: 'add-accounting-entity',      component: AddAccountingEntityComponent},
+    { path: 'add-product-type',      component: AddProductTypeComponent},
+    { path: 'product-manager',      component: ProductManagerComponent},        
     { path: '',          redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 

@@ -20,6 +20,9 @@ import { AddVoucherComponent } from './voucher/add-voucher/add-voucher.component
 import { AppSettings } from './services/app-settings.service';
 import { InvoiceComponent } from './invoice/invoice.component';
 import { BackEndCalls } from './services/backendcalls.service';
+import { AddAccountingEntityComponent } from './account-entity/add-accounting-entity/add-accounting-entity.component';
+import { AddProductTypeComponent } from './product/add-product-type/add-product-type.component';
+import { ProductManagerComponent } from './product/product-manager/product-manager.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { BackEndCalls } from './services/backendcalls.service';
     AddProductComponent,
     AddCustomerComponent,
     AddVoucherComponent,
-    InvoiceComponent
+    InvoiceComponent,
+    AddAccountingEntityComponent,
+    AddProductTypeComponent,
+    ProductManagerComponent
   ],
   imports: [
     BrowserModule,
