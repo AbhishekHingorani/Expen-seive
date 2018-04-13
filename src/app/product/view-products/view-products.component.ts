@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataTableResource } from 'angular-4-data-table-bootstrap-4';
 import { Product } from '../../models/product';
+import { Router } from '@angular/router';
+import { BackEndCalls } from '../../services/backendcalls.service';
 
 @Component({
   selector: 'view-products',
@@ -22,7 +24,7 @@ export class ViewProductsComponent implements OnInit {
     price: 500
    },
    {
-    id: 1,
+    id: 2,
     company: 'Qmax',
     name: 'stripes',
     type: 'pant',
@@ -33,7 +35,7 @@ export class ViewProductsComponent implements OnInit {
     price: 1500
    },
    {
-    id: 1,
+    id: 3,
     company: 'Arvind',
     name: 'Checks',
     type: 'box',
@@ -44,7 +46,7 @@ export class ViewProductsComponent implements OnInit {
     price: 600
    },
    {
-    id: 1,
+    id: 4,
     company: 'Siyaram',
     name: 'suit',
     type: 'suit',
@@ -55,7 +57,7 @@ export class ViewProductsComponent implements OnInit {
     price: 12500
    },
    {
-    id: 1,
+    id: 5,
     company: 'Siyaram',
     name: 'shirt',
     type: 'shirting',
@@ -72,12 +74,22 @@ export class ViewProductsComponent implements OnInit {
   itemCount: number;
   tableResourse: DataTableResource<Product>;
 
-  constructor() { }
+  constructor(private router: Router, private service: BackEndCalls) { }
 
   ngOnInit() {
-    this.products = this.p;
+  
+    this.service.getAllProducts()
+    .subscribe(response => {
+      console.log('idhar aya');
+      console.log(response.json().products);
+      //this.allVouchers = this.vouchers = response.json().voucher;
+      this.products = response.json().products;
+      this.initializeTable(this.products);
+    });
+    console.log(this.products);
+    //this.products = this.p;
     //this.products.push(this.p);
-    this.initializeTable(this.products);
+   
   }
 
   private initializeTable(products: Product[]){
@@ -102,5 +114,9 @@ export class ViewProductsComponent implements OnInit {
       this.products;
 
       this.initializeTable(filteredProducts);
+  }
+
+  editProduct(prodId: number){
+    this.router.navigate(['/add-product',prodId]);
   }
 }

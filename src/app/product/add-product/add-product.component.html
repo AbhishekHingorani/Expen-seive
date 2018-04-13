@@ -6,19 +6,21 @@
           <div class="content">
             <form #productForm="ngForm" (ngSubmit)="submit(productForm)">
               <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label>Product Name</label>
-                    <input ngModel name="ProductName" type="text" class="form-control" placeholder="Name" value="">
+                    <input [(ngModel)]="pname" name="ProductName" type="text" class="form-control" placeholder="Name" value="">
                   </div>
                 </div>
-                <div class="col-md-3">
-                  <div class="form-group">
-                    <label>HSN Code</label>
-                    <input ngModel name="hsnCode" type="number" class="form-control" placeholder="00000000" value="">
-                  </div>
-                </div>
+              </div>
 
+              <div class="row">
+                  <div class="col-md-6">
+                      <div class="form-group">
+                        <label>HSN Code</label>
+                        <input [(ngModel)]="hsnCode" name="hsnCode" type="number" class="form-control" placeholder="00000000" value="">
+                      </div>
+                    </div>
               </div>
 
               <div class="row">
@@ -28,9 +30,10 @@
                     <ng-select2 
                       ngModel 
                       name="companyName" 
+                      [value]="companyId"
                       [data]="companies" 
                       [options]="options" 
-                      [width]="215" id="company" 
+                      [width]="240" id="company" 
                       style="width:100% !important"
                       (valueChanged)="companyValueChanged($event)">
                     </ng-select2>
@@ -42,9 +45,10 @@
                     <ng-select2
                       ngModel 
                       name="productType" 
+                      [value]="prodTypeId"
                       [data]="productTypes"
                       [options]="options"
-                      [width]="215"  
+                      [width]="240 "  
                       id="company"
                       style="width:100% !important"
                       (valueChanged)="companyValueChanged($event)" >
@@ -54,38 +58,28 @@
               </div>
 
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                   <div class="form-group">
-                    <input ngModel type="radio" name="optionsRadios" data-toggle="radio"    id="optionsRadios1" value="meter" checked>
-                    <i></i>Meter &nbsp; &nbsp;
-                    <input ngModel type="radio" name="optionsRadios" data-toggle="radio" id="optionsRadios2" value="pcs">
-                    <i></i>Quantity
-
-                    <input ngModel name="quantity" type="text" class="form-control" placeholder="How many Mtr/Pcs..." value="">
+                    <label>stock</label>
+                    <input [(ngModel)]="stock" name="quantity" type="text" class="form-control" placeholder="How many Mtr/Pcs..." value="">
                   </div>
                 </div>
 
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Rate (per unit)</label>
-                    <input ngModel name="productPrice" type="text" class="form-control" placeholder="Price(₹)" value="">
+                <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Re-Order Level</label>
+                      <input [(ngModel)]="reorderLvl" name="reorderLevel" type="text" class="form-control" placeholder="Value">
+                    </div>
                   </div>
-                </div>
               </div>
 
               <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Total</label>
-                    <input type="text" class="form-control" placeholder="Total" disabled>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Re-Order Level</label>
-                    <input ngModel name="reorderLevel" type="text" class="form-control" placeholder="Value">
-                  </div>
-                </div>
+                  <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Rate (per unit)</label>
+                        <input [(ngModel)]="price" name="productPrice" type="text" class="form-control" placeholder="Price(₹)" value="">
+                      </div>
+                    </div>
               </div>
               <button type="submit" class="btn btn-info btn-fill pull-right">Add</button>
               <div class="clearfix"></div>

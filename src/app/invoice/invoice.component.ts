@@ -63,15 +63,6 @@ export class InvoiceComponent implements OnInit {
           allowClear: true
         }
     });
-    
-    this.service.getProducts()
-      .subscribe(response => {
-        console.log(response.json());
-        this.invoiceProduct = response.json();
-        this.options = {
-          allowClear: true
-        }
-    });
 
     this.service.getInvoiceCompany()
       .subscribe(response => {

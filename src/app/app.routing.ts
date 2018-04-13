@@ -18,6 +18,7 @@ import { VoucherManagerComponent } from './voucher/voucher-manager/voucher-manag
 const routes: Routes =[
     { path: 'login',      component: LoginComponent},      
     { path: 'dashboard',      component: HomeComponent,  canActivate: [LoginGuard]},
+    { path: 'add-product/:product-id',      component: AddProductComponent,  canActivate: [LoginGuard] },
     { path: 'add-product',      component: AddProductComponent,  canActivate: [LoginGuard] },
     { path: 'add-customer',      component: AddCustomerComponent,  canActivate: [LoginGuard] },
     { path: 'add-voucher',      component: AddVoucherComponent,  canActivate: [LoginGuard] },

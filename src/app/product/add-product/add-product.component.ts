@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Select2OptionData } from 'ng-select2/ng-select2/ng-select2.interface';
 import { BackEndCalls } from './../../services/backendcalls.service';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'add-product',
@@ -14,18 +15,49 @@ export class AddProductComponent implements OnInit {
   public productTypes: Array<Select2OptionData>;
   public options: Select2Options;
 
-  constructor(private service: BackEndCalls) { }
+  private prodId: string;
+  private pname: string;
+  private hsnCode: number;
+  private price;
+  private stock;
+  private reorderLvl;
+  private companyId;
+  private prodTypeId;
+
+
+  constructor(private service: BackEndCalls, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.service.getCompanies()
+    this.route.paramMap
+      .subscribe(params => {
+        this.prodId = params.get('product-id');
+      });
+
+    this.service.getProductTypeAndCompany()
       .subscribe(response => {
         console.log(response.json().product_type);
-        this.companies = response.json();
-        this.productTypes = response.json();
+        this.companies = response.json().company;
+        this.productTypes = response.json().product_type;
         this.options = {
           allowClear: true
         }
       });
+
+      //alert(this.prodId);
+      if(this.prodId != null){
+        this.service.getSingleProduct(JSON.stringify({'productId':this.prodId}))
+          .subscribe((data) => {
+            let prod = data.json().product[0];
+            
+            this.pname = prod.name;
+            this.companyId = prod.company;
+            this.prodTypeId = prod.type;
+            this.hsnCode = prod.hsnCode;
+            this.price = prod.price;
+            this.stock = prod.stock;
+            this.reorderLvl = prod.reorderLevel;
+          });
+      }
   }
 
   public companyValueChanged(event) {
@@ -33,10 +65,22 @@ export class AddProductComponent implements OnInit {
   }
 
   submit(form: NgForm) {
+    form.value.id = this.prodId;
     let newProductJsonData = JSON.stringify(form.value);
-    this.service.postNewProductsData(newProductJsonData)
+    console.log(newProductJsonData);
+    if(this.prodId == null)
+    {
+      this.service.postNewProductsData(newProductJsonData)
+        .subscribe((data) => {
+          console.log(data);
+        });
+    }
+    else
+    {
+      this.service.editProduct(newProductJsonData)
       .subscribe((data) => {
         console.log(data);
       });
+    }
   }
 }
