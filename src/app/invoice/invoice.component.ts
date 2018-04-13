@@ -57,29 +57,29 @@ export class InvoiceComponent implements OnInit {
   ngOnInit() {
     this.service.getCustomers()
       .subscribe(response => {
-        console.log(response.json());
-        this.invoiceCustomer = response.json();
+        console.log(response.json().customer);
+        this.invoiceCustomer = response.json().customer;
         this.options = {
           allowClear: true
         }
-      });
+    });
     
-      this.service.getProducts()
-    .subscribe(response => {
-      console.log(response.json());
-      this.invoiceProduct = response.json();
-      this.options = {
-        allowClear: true
-      }
+    this.service.getProducts()
+      .subscribe(response => {
+        console.log(response.json());
+        this.invoiceProduct = response.json();
+        this.options = {
+          allowClear: true
+        }
     });
 
     this.service.getInvoiceCompany()
-    .subscribe(response => {
-      console.log(response.json());
-      this.invoiceCompany = response.json();
-      this.options = {
-        allowClear: true
-      }
+      .subscribe(response => {
+        console.log(response.json().company);
+        this.invoiceCompany = response.json().company;
+        this.options = {
+          allowClear: true
+        }
     });
       
     this.tableData1 = {
@@ -102,16 +102,36 @@ export class InvoiceComponent implements OnInit {
   }
 
   productNameChanged(event){
+    console.log('entered');
+    this.service.getInvoiceProductPrice(JSON.stringify({"companyId": this.fieldDataRow[0], "productId": event.value}))
+      .subscribe((data) => {
+        console.log('price');
+        console.log(data.json());
+        this.newTableRow[2] = data.json();
+      });
+
     console.log(JSON.stringify(["productId", event.value]));
     this.newTableRow[1] = event.data[0].text;
     this.fieldDataRow[1] = event.value;
   }
 
   companyChanged($event){
-    //console.log(JSON.stringify(["companyId", event]));
+    //console.log(JSON.stringify({"companyId": $event.value, "productId": $event.value}));
+    this.service.getInvoiceProduct(JSON.stringify({"companyId": $event.value}))
+      .subscribe((data) => {
+        console.log('retriving product : ');
+        console.log(data.json().product);
+
+        this.invoiceProduct = data.json().product;
+        this.options = {
+          allowClear: true
+        }
+      });
     console.log($event);
     this.newTableRow[0] = $event.data[0].text;
     this.fieldDataRow[0] = $event.value;
+
+
   }
 
   addRow(){
@@ -168,6 +188,11 @@ export class InvoiceComponent implements OnInit {
     this.userData.grandTotalAmt = this.grandTotal;
 
     console.log('Json : ' + JSON.stringify(this.userData));
+
+    this.service.postInvoiceData(JSON.stringify(this.userData))
+      .subscribe((data) => {
+        console.log(data.json());
+      });
   }
 
 

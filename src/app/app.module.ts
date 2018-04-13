@@ -9,6 +9,7 @@ import { NavbarModule } from './shared/navbar/navbar.module';
 import { FooterModule } from './shared/footer/footer.module';
 import { SidebarModule } from './sidebar/sidebar.module';
 import { LbdModule } from './lbd/lbd.module';
+import { DataTableModule } from 'angular-4-data-table-bootstrap-4';
 
 import { AppComponent } from './app.component';
 
@@ -23,6 +24,11 @@ import { BackEndCalls } from './services/backendcalls.service';
 import { AddAccountingEntityComponent } from './account-entity/add-accounting-entity/add-accounting-entity.component';
 import { AddProductTypeComponent } from './product/add-product-type/add-product-type.component';
 import { ProductManagerComponent } from './product/product-manager/product-manager.component';
+import { ViewProductsComponent } from './product/view-products/view-products.component';
+import { LoginComponent } from './login/login.component';
+import { LoginGuard } from './services/auth.loginguard';
+import { ViewVouchersComponent } from './voucher/view-vouchers/view-vouchers.component';
+import { VoucherManagerComponent } from './voucher/voucher-manager/voucher-manager.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +40,11 @@ import { ProductManagerComponent } from './product/product-manager/product-manag
     InvoiceComponent,
     AddAccountingEntityComponent,
     AddProductTypeComponent,
-    ProductManagerComponent
+    ProductManagerComponent,
+    ViewProductsComponent,
+    LoginComponent,
+    ViewVouchersComponent,
+    VoucherManagerComponent
   ],
   imports: [
     BrowserModule,
@@ -46,11 +56,13 @@ import { ProductManagerComponent } from './product/product-manager/product-manag
     RouterModule,
     AppRoutingModule,
     LbdModule,
-    NgSelect2Module
+    NgSelect2Module,
+    DataTableModule
   ],
   providers: [
     BackEndCalls,
-    AppSettings
+    AppSettings,
+    LoginGuard
   ],
   bootstrap: [AppComponent]
 })

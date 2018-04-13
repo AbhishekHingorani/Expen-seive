@@ -5,12 +5,16 @@
         <!--Tabs Start-->
         <ul role="tablist" class="nav nav-tabs">
           <li role="presentation" class="active">
-            <a href="#icon-account #add-product" data-toggle="tab">
-              <i class="fa fa-info"></i> Add Product</a>
+            <a href="#icon-account #view-product" data-toggle="tab">
+              <i class="fa fa-user"></i> View Products</a>
           </li>
           <li>
             <a href="#icon-style #add-type" data-toggle="tab">
               <i class="fa fa-user"></i> Add Product Type</a>
+          </li>
+          <li>
+            <a href="#icon-style #add-product" data-toggle="tab">
+            <i class="fa fa-info"></i> Add Product</a>
           </li>
         </ul>
         <!--Tab End-->
@@ -18,8 +22,12 @@
         <!--Content Start-->
         <div class="tab-content">
 
+          <div id="view-product" class="tab-pane active">
+            <view-products></view-products>
+          </div>
+          
           <!--add Product page-->
-          <div id="add-product" class="tab-pane active">
+          <div id="add-product" class="tab-pane">
             <add-product></add-product>
           </div>
 

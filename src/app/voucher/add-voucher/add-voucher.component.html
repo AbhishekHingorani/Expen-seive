@@ -1,5 +1,5 @@
-<div class="main-content">
-  <div class="container-fluid">
+<!-- <div class="main-content">
+  <div class="container-fluid"> -->
     <div class="row">
       <div class="col-md-12">
         <div class="card">
@@ -11,15 +11,9 @@
 
             <form #f="ngForm" (ngSubmit)="submit(f)">
               <div class="row">
-                <!--voucher id-->
-                <div class="col-md-2">
-                  <div class="form-group">
-                    <label>Voucher ID</label>
-                    <input ngModel name="voucherID" type="text" class="form-control" placeholder="Id" value="1">
-                  </div>
-                </div>
+                
                 <!--date of voucher-->
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label>Date</label>
                     <input ngModel name="voucherDate" type="date" class="form-control" placeholder="" value="">
@@ -33,7 +27,7 @@
                   <div class="form-group">
                     <label>From</label>
                     <br>
-                    <ng-select2 ngModel name="voucherFrom" [data]="voucherFrom" [options]="options" [width]="215" id="voucherFrom" style="width:100% !important">
+                    <ng-select2 ngModel name="voucherFrom" [data]="voucherFrom" [options]="options" [width]="313" id="voucherFrom" style="width:100% !important">
                     </ng-select2>
                   </div>
                 </div>
@@ -44,27 +38,38 @@
                   <div class="form-group">
                     <label>To</label>
                     <br>
-                    <ng-select2 ngModel name="voucherTo" [data]="voucherTo" [options]="options" [width]="215" id="voucherTo" style="width:100% !important">
+                    <ng-select2 ngModel name="voucherTo" [data]="voucherTo" [options]="options" [width]="313" id="voucherTo" style="width:100% !important">
                     </ng-select2>
                   </div>
                 </div>
               </div>
+
+              <div class="row">
+                  <!--to specific account(dropdown)-->
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>Amount</label>
+                      <input class="form-control" type="number" ngModel name="voucherAmt">
+                    </div>
+                  </div>
+                </div>
 
 
               <div class="row">
                 <!--cash/cheque-->
                 <div class="col-md-4">
                   <div class="form-group">
-                    <input ngModel type="radio" name="optionsRadios" data-toggle="radio" id="optionsRadios1" value="cash" checked> Cash &nbsp; &nbsp;
-                    <input ngModel type="radio" name="optionsRadios" data-toggle="radio" id="optionsRadios2" value="cheque"> Cheque
-                    <input ngModel name="voucherChequeNo" type="text" class="form-control" placeholder="Cheque Number" value="">
+                    <input [(ngModel)]="cashCheque" type="radio" name="optionsRadios" data-toggle="radio" id="optionsRadios1" value="cash" checked> Cash &nbsp; &nbsp;
+                    <input [(ngModel)]="cashCheque" type="radio" name="optionsRadios" data-toggle="radio" id="optionsRadios2" value="cheque"> Cheque
+
+                    <input [disabled]="isChequeNoDisabled()" name="voucherChequeNo" type="text" class="form-control" placeholder="Cheque Number" value="">
                   </div>
                 </div>
               </div>
 
 
               <!--submit button-->
-              <button type="submit" class="btn btn-info btn-fill pull-right">Add</button>
+              <button type="submit" class="btn btn-default btn-fill pull-right">Add</button>
               <div class="clearfix"></div>
             </form>
           </div>
@@ -73,5 +78,5 @@
 
 
     </div>
-  </div>
-</div>
+  <!-- </div>
+</div> -->

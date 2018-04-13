@@ -98,4 +98,9 @@ export class NavbarComponent implements OnInit{
       this.menuItems = DEFAULT_ROUTES;//DEFAULT_ROUTES.filter(menuItem => menuItem);
       return 'Dashboard';
     }
+
+    logoutUser(){
+        localStorage.setItem('isLoggedIn', 'false');
+        localStorage.setItem('businessId','0');
+    }
 }

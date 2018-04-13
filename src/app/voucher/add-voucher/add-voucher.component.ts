@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Select2OptionData } from 'ng-select2/ng-select2/ng-select2.interface';
 import { NgForm } from '@angular/forms';
+import { BackEndCalls } from '../../services/backendcalls.service';
 
 @Component({
   selector: 'add-voucher',
@@ -13,18 +14,43 @@ export class AddVoucherComponent implements OnInit {
   public voucherTo: Array<Select2OptionData>;
   public options: Select2Options;
 
-  constructor() { }
+  cashCheque = "cash";
+
+  constructor(private service: BackEndCalls) { }
 
   ngOnInit() {
-    this.voucherFrom = [{"id":"1","text":"arvind"},{"id":"2","text":"raymond"}];
-    this.voucherTo = [{"id":"1","text":"arvind"},{"id":"2","text":"raymond"}];
-    this.options = {
-      allowClear: true
-    }
+
+    this.service.getVoucherNames()
+      .subscribe(response => {
+        console.log(response.json());
+        this.voucherFrom = response.json().ac_master;
+        this.voucherTo = response.json().ac_master;
+        this.options = {
+          allowClear: true
+        }
+      });
+    
+    // this.voucherFrom = [{"id":"1","text":"arvind"},{"id":"2","text":"raymond"}];
+    // this.voucherTo = [{"id":"1","text":"arvind"},{"id":"2","text":"raymond"}];
+    // this.options = {
+    //   allowClear: true
+    // }
   }
 
-  submit(form: NgForm){
-      console.log(form.value);
+  submit(form: NgForm) {
+    console.log(this.cashCheque);
+    console.log(JSON.stringify(form.value));
+    let newVoucherData = JSON.stringify(form.value);
+    this.service.postVoucherData(newVoucherData)
+      .subscribe((data) => {
+        console.log(data);
+      });
   }
 
+  isChequeNoDisabled(){
+    if(this.cashCheque == 'cash')
+      return true;
+    else
+      return false;
+  }
 }
