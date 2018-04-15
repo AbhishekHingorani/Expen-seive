@@ -14,19 +14,30 @@ import { AddProductTypeComponent } from './product/add-product-type/add-product-
 import { ProductManagerComponent } from './product/product-manager/product-manager.component';
 import { LoginGuard } from './services/auth.loginguard';
 import { VoucherManagerComponent } from './voucher/voucher-manager/voucher-manager.component';
+import {InvoiceManagerComponent} from './invoice/invoice-manager/invoice-manager.component';
+import { PrintInvoiceComponent } from './invoice/print-invoice/print-invoice.component';
+import { CustomerManagerComponent } from './customer/customer-manager/customer-manager.component';
+import { BankManagerComponent } from './Bank/bank-manager/bank-manager.component';
+import { AddBankComponent } from './Bank/add-bank/add-bank.component';
 
 const routes: Routes =[
     { path: 'login',      component: LoginComponent},      
     { path: 'dashboard',      component: HomeComponent,  canActivate: [LoginGuard]},
     { path: 'add-product/:product-id',      component: AddProductComponent,  canActivate: [LoginGuard] },
     { path: 'add-product',      component: AddProductComponent,  canActivate: [LoginGuard] },
+    { path: 'customer-manager',      component: CustomerManagerComponent,  canActivate: [LoginGuard] },
+    { path: 'add-customer/:type/:customer-seller-id',      component: AddCustomerComponent,  canActivate: [LoginGuard] },    
     { path: 'add-customer',      component: AddCustomerComponent,  canActivate: [LoginGuard] },
     { path: 'add-voucher',      component: AddVoucherComponent,  canActivate: [LoginGuard] },
-    { path: 'invoice',      component: InvoiceComponent,  canActivate: [LoginGuard]},
+    { path: 'add-invoice/:invoice-id',      component: InvoiceComponent,  canActivate: [LoginGuard] },
+    { path: 'invoice-manager',      component: InvoiceManagerComponent,  canActivate: [LoginGuard]},
+    { path: 'print-invoice/:invoice-id',      component: PrintInvoiceComponent,  canActivate: [LoginGuard]},
     { path: 'add-accounting-entity',      component: AddAccountingEntityComponent,  canActivate: [LoginGuard]},
     { path: 'add-product-type',      component: AddProductTypeComponent,  canActivate: [LoginGuard]},
     { path: 'product-manager',      component: ProductManagerComponent,  canActivate: [LoginGuard]},
     { path: 'voucher-manager',      component: VoucherManagerComponent,  canActivate: [LoginGuard]},   
+    { path: 'bank-manager',      component: BankManagerComponent,  canActivate: [LoginGuard]},
+    { path: 'add-bank/:bank-id',      component: AddBankComponent,  canActivate: [LoginGuard]}, 
     { path: '',          redirectTo: 'dashboard', pathMatch: 'full',  canActivate: [LoginGuard] }
 ];
 

@@ -17,22 +17,37 @@ export class BackEndCalls {
   postNewProductURL = "/add_product_insert.php";
   editProductURL = "/edit_product.php";
   getAllProductsURL = "/get_all_product.php";
+  deleteProductURL = "/delete_product.php";
   
   //customer
+  getAllCustomerSellerNamesURL = "/get_customer_seller_names.php";
   getCustomerURL = '/get_customer.php';
+  postNewCustomerURL = "/add_customer_insert.php";
+  getAllCustomersURL = "/get_all_customer.php";
+  deleteCustomerSellerURL = "/delete_customer_seller.php";
+  getSingleCustomerSellerURL = "/get_single_customer_seller.php"
+
+  //seller
+  getAllSellersURL = "/get_all_seller.php";
+  editCustomerSellerURL = "/edit_customer_seller.php";
 
   //product type
   getProductTypeURL = "/productType";
   
   //voucher
   postVoucherURL = "/add_voucher_insert.php";
-  getVoucherNamesURL = "/add_voucher_acmaster.php";
+  getVoucherNamesURL = "/get_voucher_acmaster.php";
   getAllVouchersURL = "/get_voucher.php";
 
   //invoice
-  postInvoiceURL = "/demo_invoice_insert.php";
+  getInvoiceNoURL = "/invoice_number_generation.php";
+  getIsIgstApplicableURL = "/is_igst_applicable.php";
+  postInvoiceURL = "/invoice_insert.php";
   getInvoiceProductURL = "/get_invoice_product.php"
   getInvoiceProductPriceURL = "/get_price_product.php";
+  getAllInvoicesURL = "/get_all_invoice.php";
+  deleteInvoiceURL = "/delete_invoice.php";
+  getSingleInvoiceURL = "get_single_invoice.php";
 
   constructor(private http : Http) { }
 
@@ -50,6 +65,32 @@ export class BackEndCalls {
   getCustomers(){
     return this.http.get(AppSettings.BACKEND_URL + this.getCustomerURL)
   }
+  postNewCustomer(data){
+    return this.http.post(AppSettings.BACKEND_URL + this.postNewCustomerURL, data)
+  }
+  getAllCustomerSellerNames(){
+    return this.http.get(AppSettings.BACKEND_URL + this.getAllCustomerSellerNamesURL)
+  }
+  getAllCustomers(){
+    return this.http.get(AppSettings.BACKEND_URL + this.getAllCustomersURL)
+  }
+  deleteCustomerSeller(data){
+    return this.http.post(AppSettings.BACKEND_URL + this.deleteCustomerSellerURL, data)
+  }
+  getSingleCustomerSeller(data){
+    return this.http.post(AppSettings.BACKEND_URL + this.getSingleCustomerSellerURL, data)
+  }
+  editCustomerSeller(data){
+    return this.http.post(AppSettings.BACKEND_URL + this.editCustomerSellerURL, data)
+  }
+
+  //seller
+  getAllSellers(){
+    return this.http.get(AppSettings.BACKEND_URL + this.getAllSellersURL)
+  }
+  // deleteSeller(data){
+  //   return this.http.post(AppSettings.BACKEND_URL + this.deleteCustomerURL, data)
+  // }
 
   //product
   getProductTypeAndCompany(){
@@ -67,6 +108,9 @@ export class BackEndCalls {
   getAllProducts(){
     return this.http.get(AppSettings.BACKEND_URL + this.getAllProductsURL)
   }
+  deleteProduct(data){
+    return this.http.post(AppSettings.BACKEND_URL + this.deleteProductURL, data)
+  }
 
   //product type
   getProductTypes(){
@@ -74,6 +118,9 @@ export class BackEndCalls {
   }
 
   //invoice
+  getInvoiceNo(){
+    return this.http.get(AppSettings.BACKEND_URL + this.getInvoiceNoURL)
+  }
   getInvoiceCompany(){
     return this.http.get(AppSettings.BACKEND_URL + this.getCompanyURL)
   }
@@ -85,6 +132,18 @@ export class BackEndCalls {
   }
   getInvoiceProductPrice(data){
     return this.http.post(AppSettings.BACKEND_URL + this.getInvoiceProductPriceURL, data)    
+  }
+  getIsIgstApplicable(data){
+    return this.http.post(AppSettings.BACKEND_URL + this.getIsIgstApplicableURL, data)    
+  }
+  getAllInvoices(){
+    return this.http.get(AppSettings.BACKEND_URL + this.getAllInvoicesURL)
+  }
+  deleteInvoice(data){
+    return this.http.post(AppSettings.BACKEND_URL + this.deleteInvoiceURL, data)
+  }
+  getSingleInvoice(data){
+    return this.http.post(AppSettings.BACKEND_URL + this.getSingleInvoiceURL, data)  
   }
 
   //voucher

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { BackEndCalls } from '../../services/backendcalls.service';
+import { ActivatedRoute } from '@angular/router';
+import { CustomerSeller } from '../../models/customer-seller';
 
 @Component({
   selector: 'add-customer',
@@ -7,21 +10,74 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./add-customer.component.scss']
 })
 export class AddCustomerComponent implements OnInit {
-  constructor() { }
 
-  ngOnInit(){
+  customerSellerNames;
+  type;
+  date: string;// = '2018-02-02';//Date = new Date('02-02-2018');
+  customerSellerData: CustomerSeller;
+
+  constructor(private service: BackEndCalls, private route: ActivatedRoute) { }
+
+  ngOnInit() {
+    this.customerSellerData = {} as CustomerSeller;
+
+    this.route.paramMap
+      .subscribe(params => {
+        this.customerSellerData.id = Number(params.get('customer-seller-id'));
+        this.type = params.get('type');
+        console.log(this.type); 
+      });
     
+    this.service.getAllCustomerSellerNames()
+      .subscribe(response => {
+        console.log(response.json().csnames);
+        this.customerSellerNames = response.json().csnames;
+      });
+
+    if(this.customerSellerData.id != 0)
+    {
+      this.service.getSingleCustomerSeller(JSON.stringify({'id':this.customerSellerData.id, 'type':this.type}))
+          .subscribe((data) => {
+            let cs = data.json().customer_seller[0];
+            console.log('idhar aya');
+            console.log(cs.id);
+            this.customerSellerData.id = cs.id ;
+            this.customerSellerData.name = cs.name ;
+            this.customerSellerData.phone1 = cs.phone1 ;
+            this.customerSellerData.phone2 = cs.phone2 ;
+            this.customerSellerData.gstNo = cs.gstNo ;
+            this.customerSellerData.address = cs.address ;
+            this.customerSellerData.pincode = cs.pincode ;
+            this.customerSellerData.city = cs.city ;
+            this.customerSellerData.state = cs.state ;
+            this.customerSellerData.area = cs.area ;
+            this.customerSellerData.currentBalance = cs.currentBalance ;
+          });
+    }
   }
 
   addCustomer(form :NgForm)
   {
-    let jsonData = JSON.stringify(form.value);
-    console.log(jsonData);
-    console.log("<----------------------->")
-    // this.http.post('http://10.100.70.24/expen_seive/add_product_insert.php', jsonData)
-    //   .subscribe((data)=>{
-    //     console.log(data);
-        
-    //   });
+    console.log("<----------------------->");
+    if(this.customerSellerData.id == 0)
+    {
+      let jsonData = JSON.stringify(form.value);
+      console.log('add new customer');
+      console.log(jsonData);
+      this.service.postNewCustomer(jsonData)
+        .subscribe((data)=>{
+          console.log(data);
+        });
+    }
+    else{
+      form.value.id = this.customerSellerData.id;
+      console.log('edit customer');
+      let jsonData = JSON.stringify(form.value);
+      console.log(jsonData);
+      this.service.editCustomerSeller(jsonData)
+        .subscribe((data)=>{
+          console.log(data);
+      });
+    }
   }
 }

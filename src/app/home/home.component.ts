@@ -33,14 +33,14 @@ export class HomeComponent implements OnInit {
         series: [62, 32, 6]
       };
       this.emailChartLegendItems = [
-        { title: 'Open', imageClass: 'fa fa-circle text-info' },
-        { title: 'Bounce', imageClass: 'fa fa-circle text-danger' },
-        { title: 'Unsubscribe', imageClass: 'fa fa-circle text-warning' }
+        { title: 'Shirt', imageClass: 'fa fa-circle text-info' },
+        { title: 'Pant', imageClass: 'fa fa-circle text-danger' },
+        { title: 'Suit', imageClass: 'fa fa-circle text-warning' }
       ];
 
       this.hoursChartType = ChartType.Line;
       this.hoursChartData = {
-        labels: ['9:00AM', '12:00AM', '3:00PM', '6:00PM', '9:00PM', '12:00PM', '3:00AM', '6:00AM'],
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
         series: [
           [287, 385, 490, 492, 554, 586, 698, 695, 752, 788, 846, 944],
           [67, 152, 143, 240, 287, 335, 435, 437, 539, 542, 544, 647],
@@ -71,8 +71,8 @@ export class HomeComponent implements OnInit {
         }]
       ];
       this.hoursChartLegendItems = [
-        { title: 'Open', imageClass: 'fa fa-circle text-info' },
-        { title: 'Click', imageClass: 'fa fa-circle text-danger' },
+        { title: 'Purchase', imageClass: 'fa fa-circle text-info' },
+        { title: 'Sales', imageClass: 'fa fa-circle text-danger' },
         { title: 'Click Second Time', imageClass: 'fa fa-circle text-warning' }
       ];
 

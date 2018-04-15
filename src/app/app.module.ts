@@ -29,6 +29,15 @@ import { LoginComponent } from './login/login.component';
 import { LoginGuard } from './services/auth.loginguard';
 import { ViewVouchersComponent } from './voucher/view-vouchers/view-vouchers.component';
 import { VoucherManagerComponent } from './voucher/voucher-manager/voucher-manager.component';
+import { InvoiceManagerComponent } from './invoice/invoice-manager/invoice-manager.component';
+import { ViewInvoiceComponent } from './invoice/view-invoice/view-invoice.component';
+import { PrintInvoiceComponent } from './invoice/print-invoice/print-invoice.component';
+import { CustomerManagerComponent } from './customer/customer-manager/customer-manager.component';
+import { ViewCustomersComponent } from './customer/view-customers/view-customers.component';
+import { ViewSellersComponent } from './customer/view-sellers/view-sellers.component';
+import { BankManagerComponent } from './Bank/bank-manager/bank-manager.component';
+import { AddBankComponent } from './Bank/add-bank/add-bank.component';
+import { ViewBankComponent } from './Bank/view-bank/view-bank.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +53,16 @@ import { VoucherManagerComponent } from './voucher/voucher-manager/voucher-manag
     ViewProductsComponent,
     LoginComponent,
     ViewVouchersComponent,
-    VoucherManagerComponent
+    VoucherManagerComponent,
+    InvoiceManagerComponent,
+    ViewInvoiceComponent,
+    PrintInvoiceComponent,
+    CustomerManagerComponent,
+    ViewCustomersComponent,
+    ViewSellersComponent,
+    BankManagerComponent,
+    AddBankComponent,
+    ViewBankComponent
   ],
   imports: [
     BrowserModule,

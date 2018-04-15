@@ -119,4 +119,23 @@ export class ViewProductsComponent implements OnInit {
   editProduct(prodId: number){
     this.router.navigate(['/add-product',prodId]);
   }
+
+  deleteProduct(id: number){
+    this.service.deleteProduct(JSON.stringify({'id':id}))
+    .subscribe((data) => {
+      console.log(data);
+    });
+
+    this.items.forEach( (item, index) => {
+      if(item.id === id){
+         this.items.splice(index,1);
+      }
+    });
+
+    this.products.forEach( (item, index) => {
+      if(item.id === id){
+         this.products.splice(index,1);
+      }
+    });
+  }
 }

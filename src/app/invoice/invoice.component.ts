@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Select2OptionData } from 'ng-select2/ng-select2/ng-select2.interface';
 import { BackEndCalls } from '../services/backendcalls.service';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 declare interface TableData {
   headerRow: string[];
@@ -11,7 +12,9 @@ declare interface TableData {
 declare interface UserData{
   customerId: number;
   date: string;
+  cashCredit: number;
   items: string[][];
+  itemsCount: number;
   additionalExpText: string;
   additionalExpAmt: number;
   subTotalAmt: number;
@@ -28,6 +31,9 @@ declare interface UserData{
 })
 export class InvoiceComponent implements OnInit {
 
+  private invoiceNo = 0;
+  private isIgstApplicable: boolean = false;
+
   public invoiceCustomer: Array<Select2OptionData>;
   public invoiceProduct: Array<Select2OptionData>;
   public invoiceCompany: Array<Select2OptionData>;
@@ -39,11 +45,14 @@ export class InvoiceComponent implements OnInit {
   private newTableRow: any = {};
   private fieldDataRow: any = {};
   
-
+  private invoiceCustomerNo: number = 0;
+  private cashCredit: string;
+  private date: string;
   private subTotal: number = 0.0;
   private cgst: number = 0;
   private sgst: number = 0;
   private igst:number = 0;
+  private additionalExpenseText: string;
   private additionalExpense: number = 0;
   private grandTotal: number = 0;
 
@@ -52,9 +61,14 @@ export class InvoiceComponent implements OnInit {
   private igstPer: number = 2.5;
 
 
-  constructor(private service: BackEndCalls) { }
+  constructor(private service: BackEndCalls, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.paramMap
+      .subscribe(params => {
+        this.invoiceNo = Number(params.get('invoice-id'));
+      });
+
     this.service.getCustomers()
       .subscribe(response => {
         console.log(response.json().customer);
@@ -72,7 +86,7 @@ export class InvoiceComponent implements OnInit {
           allowClear: true
         }
     });
-      
+
     this.tableData1 = {
       headerRow: [ '#', 'Company', 'Product', 'Price', 'Qty', 'Total', 'Remove'],
       dataRows: []
@@ -81,7 +95,9 @@ export class InvoiceComponent implements OnInit {
    this.userData = {
       customerId: 0,
       date: "",
+      cashCredit: 0,
       items: [],
+      itemsCount: 0,
       additionalExpText: '',
       additionalExpAmt: 0,
       subTotalAmt: 0,
@@ -90,6 +106,34 @@ export class InvoiceComponent implements OnInit {
       igstAmt: 0,
       grandTotalAmt: 0
    }
+
+   if(this.invoiceNo == 0){
+    this.service.getInvoiceNo()
+      .subscribe(response => {
+        console.log(response.json());
+        this.invoiceNo = response.json();
+    });
+    }else{
+      this.service.getSingleInvoice(JSON.stringify({'id':this.invoiceNo}))
+      .subscribe((data) => {
+        //let invoice = data.json();//.product[0];
+        
+        // this.invoiceCustomerNo= 0;
+        // this.cashCredit=;
+        // this.date=;
+        // this.subTotal= 0.0;
+        // this.cgst= 0;
+        // this.sgst= 0;
+        // this.igst= 0;
+        // this.additionalExpenseText=;
+        // this.additionalExpense= 0;
+        // this.grandTotal= 0;
+
+        // this.cgstPer= 2.5;
+        // this.sgstPer= 2.5;
+        // this.igstPer= 2.5;
+    });
+    }
   }
 
   productNameChanged(event){
@@ -121,8 +165,15 @@ export class InvoiceComponent implements OnInit {
     console.log($event);
     this.newTableRow[0] = $event.data[0].text;
     this.fieldDataRow[0] = $event.value;
+  }
 
-
+  customerChanged(event){
+    this.service.getIsIgstApplicable(JSON.stringify({"customerId": event.value}))
+      .subscribe((data) => {
+        //true means igst applicable
+        console.log('igstApplicable: ' + data.json());
+        
+      });
   }
 
   addRow(){
@@ -160,16 +211,25 @@ export class InvoiceComponent implements OnInit {
       console.log(element[4]);
     });
 
-    this.cgst = this.subTotal * (this.cgstPer / 100);
-    this.sgst = this.subTotal * (this.sgstPer / 100);
-    this.igst = this.subTotal * (this.igstPer / 100);
+    if(!this.isIgstApplicable){
+      this.cgst = this.subTotal * (this.cgstPer / 100);
+      this.sgst = this.subTotal * (this.sgstPer / 100);
+    }
+    else
+      this.igst = this.subTotal * (this.igstPer / 100);
+
     this.grandTotal = this.subTotal + this.cgst + this.sgst + this.igst + this.additionalExpense;
     console.log(this.subTotal);
   }
 
   submit(form: NgForm){
     this.userData.customerId = form.value.invoiceCustomer;
-    this.userData.date = form.value.invoiceDate;
+    this.userData.date = form.value.invoiceDate + "";
+    this.userData.itemsCount = this.userData.items.length;
+    if(form.value.cashCredit == "Cash")
+      this.userData.cashCredit = 0;
+    else
+      this.userData.cashCredit = 1;  
     this.userData.additionalExpText = form.value.additionalExpenseText;
     this.userData.additionalExpAmt = this.additionalExpense;
     this.userData.subTotalAmt = this.subTotal;
@@ -178,7 +238,7 @@ export class InvoiceComponent implements OnInit {
     this.userData.igstAmt = this.igst;
     this.userData.grandTotalAmt = this.grandTotal;
 
-    console.log('Json : ' + JSON.stringify(this.userData));
+    console.log(JSON.stringify(this.userData));
 
     this.service.postInvoiceData(JSON.stringify(this.userData))
       .subscribe((data) => {
@@ -194,14 +254,15 @@ export class InvoiceComponent implements OnInit {
           icon: "pe-7s-info",
           message: "Fields must not be empty."
 
-      },{
-        type: 'danger',
-        timer: 20,
-        placement: {
-          from: from,
-          align: align
-        }
-      });
+        },
+        {
+          type: 'danger',
+          timer: 20,
+          placement: {
+            from: from,
+            align: align
+          }
+        });
         
     }
   }
