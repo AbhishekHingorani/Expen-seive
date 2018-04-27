@@ -38,13 +38,19 @@ export class AddVoucherComponent implements OnInit {
   }
 
   submit(form: NgForm) {
-    console.log(this.cashCheque);
-    console.log(JSON.stringify(form.value));
-    let newVoucherData = JSON.stringify(form.value);
-    this.service.postVoucherData(newVoucherData)
-      .subscribe((data) => {
-        console.log(data);
-      });
+    console.log(form.valid);
+    if(!form.valid)
+      this.notification.errorNotification('top', 'center');
+    else
+    {
+      this.notification.successNotification('top', 'center');
+      console.log(JSON.stringify(form.value));
+      let newVoucherData = JSON.stringify(form.value);
+      this.service.postVoucherData(newVoucherData)
+        .subscribe((data) => {
+          console.log(data);
+        });
+    }
   }
 
   isChequeNoDisabled(){
@@ -52,5 +58,40 @@ export class AddVoucherComponent implements OnInit {
       return true;
     else
       return false;
+  }
+
+  notification = {
+    errorNotification: function(from, align){
+      
+      $['notify']({
+        icon: "pe-7s-info",
+        message: "Required fields must not be empty."
+
+      },
+      {
+        type: 'danger',
+        timer: 20,
+        placement: {
+          from: from,
+          align: align
+        }
+      }); 
+    },
+    successNotification: function(from, align){
+      
+      $['notify']({
+        icon: "pe-7s-info",
+        message: "Entered Successfully."
+
+      },
+      {
+        type: 'success',
+        timer: 20,
+        placement: {
+          from: from,
+          align: align
+        }
+      }); 
+    }
   }
 }

@@ -38,6 +38,9 @@ import { ViewSellersComponent } from './customer/view-sellers/view-sellers.compo
 import { BankManagerComponent } from './Bank/bank-manager/bank-manager.component';
 import { AddBankComponent } from './Bank/add-bank/add-bank.component';
 import { ViewBankComponent } from './Bank/view-bank/view-bank.component';
+import { AccountingEntityManagerComponent } from './account-entity/accounting-entity-manager/accounting-entity-manager.component';
+import { ViewAccountingEntityComponent } from './account-entity/view-accounting-entity/view-accounting-entity.component';
+import { BalancesheetComponent } from './balancesheet/balancesheet.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,10 @@ import { ViewBankComponent } from './Bank/view-bank/view-bank.component';
     ViewSellersComponent,
     BankManagerComponent,
     AddBankComponent,
-    ViewBankComponent
+    ViewBankComponent,
+    AccountingEntityManagerComponent,
+    ViewAccountingEntityComponent,
+    BalancesheetComponent
   ],
   imports: [
     BrowserModule,

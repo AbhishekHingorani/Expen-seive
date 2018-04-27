@@ -8,6 +8,9 @@ export class BackEndCalls {
   //login
   loginURL = '/login.php';
 
+  //pincode
+  getPincodeURL = "/get_pincode.php";
+
   //company
   getCompanyURL = '/get_company.php';
   
@@ -47,13 +50,33 @@ export class BackEndCalls {
   getInvoiceProductPriceURL = "/get_price_product.php";
   getAllInvoicesURL = "/get_all_invoice.php";
   deleteInvoiceURL = "/delete_invoice.php";
-  getSingleInvoiceURL = "get_single_invoice.php";
+  getSingleInvoiceURL = "/get_single_invoice.php";
+  printInvoiceURL = "/print_single_invoice.php"
+
+  //AC Group
+  getAcGroupNamesURL = "/get_acgroup.php";
+
+  //Accounting Entity
+  getAllAccountingEntityURL = "/get_.php";
+  deleteAccountingEntityURL = "/delete_.php";
+
+  //Bank
+  postNewBankDataURL = "/bank_insert.php";
+  editBankURL = "/edit_bank.php";
+  getSingleBankURL = "/get_single_bank.php";
+  getAllBanksURL = "/get_all_bank.php"
+  deleteBankURL = "/delete_bank.php"
 
   constructor(private http : Http) { }
 
   //login
   loginUser(loginData){
     return this.http.post(AppSettings.BACKEND_URL + this.loginURL, loginData)    
+  }
+
+  //pincode
+  getPinCodes(){
+    return this.http.get(AppSettings.BACKEND_URL + this.getPincodeURL)
   }
 
   //company
@@ -88,9 +111,6 @@ export class BackEndCalls {
   getAllSellers(){
     return this.http.get(AppSettings.BACKEND_URL + this.getAllSellersURL)
   }
-  // deleteSeller(data){
-  //   return this.http.post(AppSettings.BACKEND_URL + this.deleteCustomerURL, data)
-  // }
 
   //product
   getProductTypeAndCompany(){
@@ -145,6 +165,9 @@ export class BackEndCalls {
   getSingleInvoice(data){
     return this.http.post(AppSettings.BACKEND_URL + this.getSingleInvoiceURL, data)  
   }
+  printInvoice(data){
+    return this.http.post(AppSettings.BACKEND_URL + this.printInvoiceURL, data)  
+  }
 
   //voucher
   postVoucherData(voucherJsonData){
@@ -157,5 +180,33 @@ export class BackEndCalls {
     return this.http.get(AppSettings.BACKEND_URL + this.getAllVouchersURL)
   }
 
-  
+  //AC Group
+  getAcGroupNames(){
+    return this.http.get(AppSettings.BACKEND_URL + this.getAcGroupNamesURL)
+  }
+
+  //Accounting Entity
+  getAllAccountingEntity(){
+    return this.http.get(AppSettings.BACKEND_URL + this.getAllAccountingEntityURL)
+  }
+  deleteAccountingEntity(data){
+    return this.http.post(AppSettings.BACKEND_URL + this.deleteAccountingEntityURL, data)
+  }
+
+  //Bank
+  postNewBankData(data){
+    return this.http.post(AppSettings.BACKEND_URL + this.postNewBankDataURL, data)    
+  }
+  editBank(data){
+    return this.http.post(AppSettings.BACKEND_URL + this.editBankURL, data)
+  }
+  getSingleBank(data){
+    return this.http.post(AppSettings.BACKEND_URL + this.getSingleBankURL, data)
+  }
+  getAllBanks(){
+    return this.http.get(AppSettings.BACKEND_URL + this.getAllBanksURL)
+  }
+  deleteBank(data){
+    return this.http.post(AppSettings.BACKEND_URL + this.deleteBankURL, data)
+  }
 }

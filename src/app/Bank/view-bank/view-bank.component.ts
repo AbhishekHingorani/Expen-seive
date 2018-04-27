@@ -12,32 +12,41 @@ import { BackEndCalls } from '../../services/backendcalls.service';
 export class ViewBankComponent implements OnInit {
   b: Bank[] = [
     {
-      id: 1,
       name: 'polkaDot',
-      acNo: 'shirt',
+      acNo: 65498,
       gstNo: 'mtr',
+      dateSince: '2-2-2018',
       bsrCode: '998877',
       address: '30 dfsfd',
+      area:'asd',
+      city:'sgf',
+      state: 'ojn',
       pincode: '20000',
       balance: 500
     },
     {
-      id: 1,
       name: 'dolkaDot',
-      acNo: 'shirt',
+      acNo: 98423,
       gstNo: 'mtr',
+      dateSince: '2-2-2018',
       bsrCode: '998877',
       address: '30 dfsfd',
+      area:'asd',
+      city:'sgf',
+      state: 'ojn',
       pincode: '20000',
       balance: 500
     },
     {
-      id: 1,
-      name: 'lolkaDot',
-      acNo: 'shirt',
+      name: 'molkaDot',
+      acNo: 8465132,
       gstNo: 'mtr',
+      dateSince: '2-2-2018',
       bsrCode: '998877',
       address: '30 dfsfd',
+      area:'asd',
+      city:'sgf',
+      state: 'ojn',
       pincode: '20000',
       balance: 500
     },
@@ -52,17 +61,16 @@ export class ViewBankComponent implements OnInit {
 
   ngOnInit() {
   
-    // this.service.getAllBanks()
-    //   .subscribe(response => {
-    //     console.log('idhar aya');
-    //     console.log(response.json().banks);
-    //     //this.allVouchers = this.vouchers = response.json().voucher;
-    //     this.banks = response.json().banks;
-    //     this.initializeTable(this.banks);
-    // });
-    console.log(this.banks);
-    this.banks = this.b;
-    this.initializeTable(this.banks);
+    this.service.getAllBanks()
+      .subscribe(response => {
+        console.log('idhar aya');
+        console.log(response.json().bank);
+        this.banks = response.json().bank;
+        this.initializeTable(this.banks);
+    });
+    // console.log(this.banks);
+    // this.banks = this.b;
+    // this.initializeTable(this.banks);
    
   }
 
@@ -95,19 +103,19 @@ export class ViewBankComponent implements OnInit {
   }
 
   deleteBank(id: number){
-    this.service.deleteBank(JSON.stringify({'id':id}))
+    this.service.deleteBank(JSON.stringify({'bankAcNo':id}))
     .subscribe((data) => {
       console.log(data);
     });
 
     this.items.forEach( (item, index) => {
-      if(item.id === id){
+      if(item.acNo === id){
          this.items.splice(index,1);
       }
     });
 
     this.banks.forEach( (item, index) => {
-      if(item.id === id){
+      if(item.acNo === id){
          this.banks.splice(index,1);
       }
     });

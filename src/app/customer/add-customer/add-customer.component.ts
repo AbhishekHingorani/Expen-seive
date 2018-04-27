@@ -16,6 +16,9 @@ export class AddCustomerComponent implements OnInit {
   date: string;// = '2018-02-02';//Date = new Date('02-02-2018');
   customerSellerData: CustomerSeller;
 
+  public pincodes: Array<Select2OptionData>;
+  public options: Select2Options;
+
   constructor(private service: BackEndCalls, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -32,6 +35,14 @@ export class AddCustomerComponent implements OnInit {
       .subscribe(response => {
         console.log(response.json().csnames);
         this.customerSellerNames = response.json().csnames;
+      });
+
+      this.service.getPinCodes()
+        .subscribe(response => {
+          this.pincodes = response.json().pincode;
+          this.options = {
+            allowClear: true
+          }
       });
 
     if(this.customerSellerData.id != 0)
@@ -58,26 +69,66 @@ export class AddCustomerComponent implements OnInit {
 
   addCustomer(form :NgForm)
   {
-    console.log("<----------------------->");
-    if(this.customerSellerData.id == 0)
+    console.log(form.valid);
+    if(form.valid == false)
+      this.notification.errorNotification('top','center');
+    else
     {
-      let jsonData = JSON.stringify(form.value);
-      console.log('add new customer');
-      console.log(jsonData);
-      this.service.postNewCustomer(jsonData)
-        .subscribe((data)=>{
-          console.log(data);
+      this.notification.successNotification('top','center')  
+      if(this.customerSellerData.id == 0)
+      {
+        let jsonData = JSON.stringify(form.value);
+        console.log('add new customer');
+        console.log(jsonData);
+        this.service.postNewCustomer(jsonData)
+          .subscribe((data)=>{
+            console.log(data);
+          });
+      }
+      else{
+        form.value.id = this.customerSellerData.id;
+        console.log('edit customer');
+        let jsonData = JSON.stringify(form.value);
+        console.log(jsonData);
+        this.service.editCustomerSeller(jsonData)
+          .subscribe((data)=>{
+            console.log(data);
         });
+      }
     }
-    else{
-      form.value.id = this.customerSellerData.id;
-      console.log('edit customer');
-      let jsonData = JSON.stringify(form.value);
-      console.log(jsonData);
-      this.service.editCustomerSeller(jsonData)
-        .subscribe((data)=>{
-          console.log(data);
-      });
+  }
+
+  notification = {
+    errorNotification: function(from, align){
+      
+      $['notify']({
+        icon: "pe-7s-info",
+        message: "Required fields must not be empty."
+
+      },
+      {
+        type: 'danger',
+        timer: 20,
+        placement: {
+          from: from,
+          align: align
+        }
+      }); 
+    },
+    successNotification: function(from, align){
+      
+      $['notify']({
+        icon: "pe-7s-info",
+        message: "Entered Successfully."
+      },
+      {
+        type: 'success',
+        timer: 20,
+        placement: {
+          from: from,
+          align: align
+        }
+      }); 
     }
   }
 }

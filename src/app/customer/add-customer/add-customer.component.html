@@ -15,17 +15,17 @@
                   <div class="form-group">
                     <label>Select</label>
                     <br/>
-                    <input [(ngModel)]="type" type="radio" name="optionsRadios" data-toggle="radio" id="optionsRadios1" value="s"> Seller &nbsp; &nbsp;
-                    <input [(ngModel)]="type" type="radio" name="optionsRadios" data-toggle="radio" id="optionsRadios2" value="c"> Customer
+                    <input required [(ngModel)]="type" type="radio" name="optionsRadios" data-toggle="radio" id="optionsRadios1" value="s"> Seller &nbsp; &nbsp;
+                    <input required [(ngModel)]="type" type="radio" name="optionsRadios" data-toggle="radio" id="optionsRadios2" value="c"> Customer
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-5">
                   <div class="form-group">
-                    <label>Name</label>
+                    <label>Name *</label>
 
-                    <input [(ngModel)]="customerSellerData.name" name="customerName" list="customerSellerNames" class="form-control" placeholder="Customer/Company Name..." autocomplete="off">
+                    <input required [(ngModel)]="customerSellerData.name" name="customerName" list="customerSellerNames" class="form-control" placeholder="Customer/Company Name..." autocomplete="off">
 
                     <datalist id="customerSellerNames">
                       <option *ngFor="let item of customerSeller;" value={{item}}>
@@ -41,8 +41,8 @@
                                 </div>-->
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label>Opening Bal.</label>
-                    <input [(ngModel)]="customerSellerData.currentBalance" name="openingBalance" type="text" class="form-control" placeholder="Rs.0000.00">
+                    <label>Opening Bal. *</label>
+                    <input required [(ngModel)]="customerSellerData.currentBalance" name="openingBalance" type="text" class="form-control" placeholder="Rs.0000.00">
                   </div>
                 </div>
               </div>
@@ -50,8 +50,8 @@
               <div class="row">
                 <div class="col-md-5">
                   <div class="form-group">
-                    <label>Date(Since)</label>
-                    <input [(ngModel)]="date" name="dateSince" type="date" class="form-control" placeholder="" value="">
+                    <label>Date(Since) *</label>
+                    <input required [(ngModel)]="date" name="dateSince" type="date" class="form-control" placeholder="" value="">
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -85,18 +85,26 @@
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <div class="form-group">
-                    <label>Postal Code</label>
-                    <input [(ngModel)]="customerSellerData.pincode" name="pinCode" type="number" class="form-control" placeholder="ZIP Code">
-                  </div>
+                    <div class="form-group">
+                        <label>Pincode</label>
+                        <br>
+                        <ng-select2 ngModel
+                            name="pincodes" 
+                            [data]="pincodes" 
+                            [options]="options" 
+                            [width]="230" 
+                            id="acGroup" 
+                            style="width:100% !important">
+                        </ng-select2>
+                    </div> 
                 </div>
               </div>
 
 
               <div class="row">
-                <div class="col-md-8"></div>
-                <button style="padding-right: 50px" type="submit" class="col-md-1 btn btn-default btn-fill">Add</button>
-                <div class="col-md-3"></div>
+                <div class="col-md-9">
+                  <button style="padding-right: 50px" type="submit" class="col-md-1 btn btn-default   btn-fill pull-right">Add</button>
+                </div>
               </div>
               <div class="clearfix"></div>
             </form>

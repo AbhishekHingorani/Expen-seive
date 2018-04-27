@@ -9,14 +9,6 @@ declare interface RouteInfo {
     class: string;
 }
 
-var PRODUCT_ROUTES: RouteInfo[] = [
-    { path: 'dashboard', title: 'Dashboard',  icon: 'pe-7s-graph', class: '' },
-    { path: 'add-product', title: 'Add Product',  icon: 'pe-7s-box2', class: '' }
-];
-
-var DEFAULT_ROUTES: RouteInfo[] = [
-    
-];
 
 @Component({
     // moduleId: module.id,
@@ -25,8 +17,6 @@ var DEFAULT_ROUTES: RouteInfo[] = [
 })
 
 export class NavbarComponent implements OnInit{
-
-    menuItems: any[];
 
     private listTitles: any[];
     location: Location;
@@ -42,7 +32,6 @@ export class NavbarComponent implements OnInit{
       this.listTitles = ROUTES.filter(listTitle => listTitle);
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
-      this.menuItems = DEFAULT_ROUTES.filter(menuItem => menuItem);
     }
 
     ngAfterViewChecked() {
@@ -81,21 +70,11 @@ export class NavbarComponent implements OnInit{
       for(var item = 0; item < this.listTitles.length; item++){
           if(this.listTitles[item].path === titlee){
               let title = this.listTitles[item].title;
-              if(title == "Product"){
-                this.menuItems = null;
-                this.menuItems = PRODUCT_ROUTES;//.filter(menuItem => menuItem);       
-              }
-              else if(title == "Dashboard"){
-                this.menuItems = DEFAULT_ROUTES;
-              }
-              else if(title == "Customer"){
-                this.menuItems = DEFAULT_ROUTES;
-              }
+              
               return title;
           }
       }
-      this.menuItems = null;
-      this.menuItems = DEFAULT_ROUTES;//DEFAULT_ROUTES.filter(menuItem => menuItem);
+      
       return 'Dashboard';
     }
 

@@ -18,8 +18,9 @@
                   <strong>Billed To:</strong>
                   <br> {{customerName}}
                   <br> {{customerAddress}}
-                  <br> {{customerCity}}
+                  <br> {{customerArea}}, {{customerCity}}
                   <br> {{customerState}}, {{customerPincode}}
+                  <br><br> <strong> GST No: </strong> <br> {{customerGstNo}}
                 </address>
               </div>
               <div class="col-xs-6 text-right">
@@ -99,26 +100,27 @@
                         <td class="no-line"></td>
                         <td class="no-line"></td>
                         <td class="no-line text-center">
-                          <strong>CGST{{'(' + cgstPer + '%)'}}</strong>
+                          <strong>CGST{{'(' + cgstPer + '%)'}} + SGST{{'(' + sgstPer + '%)'}} </strong>
                         </td>
-                        <td class="no-line text-right">&#x20b9;{{cgstAmt}}</td>
+                        <td class="no-line text-right">&#x20b9;{{totTax}}</td>
                       </tr>
+                      <tr>
+                          <td class="no-line"></td>
+                          <td class="no-line"></td>
+                          <td class="no-line text-center">
+                            <strong>IGST{{'(' + igstPer + '%)'}}</strong>
+                          </td>
+                          <td class="no-line text-right">&#x20b9;{{igstAmt}}</td>
+                        </tr>
                       <tr>
                         <td class="no-line"></td>
                         <td class="no-line"></td>
                         <td class="no-line text-center">
-                          <strong>SGST{{'(' + sgstPer + '%)'}}</strong>
+                          <strong>{{additionalExpTxt}}</strong>
                         </td>
-                        <td class="no-line text-right">&#x20b9;{{sgstAmt}}</td>
+                        <td class="no-line text-right">&#x20b9;{{additionalExpAmt}}</td>
                       </tr>
-                      <tr>
-                        <td class="no-line"></td>
-                        <td class="no-line"></td>
-                        <td class="no-line text-center">
-                          <strong>IGST{{'(' + igstPer + '%)'}}</strong>
-                        </td>
-                        <td class="no-line text-right">&#x20b9;{{igstAmt}}</td>
-                      </tr>
+                      
                       <tr>
                         <td class="thick-line"></td>
                         <td class="thick-line"></td>

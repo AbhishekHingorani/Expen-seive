@@ -67,20 +67,64 @@ export class AddProductComponent implements OnInit {
   submit(form: NgForm) {
     form.value.id = this.prodId;
     let newProductJsonData = JSON.stringify(form.value);
-    console.log(newProductJsonData);
-    if(this.prodId == null)
+    console.log(form);
+
+    if(form.valid == false)
+      this.notification.errorNotification('top','center');
+    else
     {
-      this.service.postNewProductsData(newProductJsonData)
+      this.notification.successNotification('top','center');
+      if(this.prodId == null)
+      {
+        this.service.postNewProductsData(newProductJsonData)
+          .subscribe((data) => {
+            console.log(data);
+          });
+      }
+      else
+      {
+        this.service.editProduct(newProductJsonData)
         .subscribe((data) => {
           console.log(data);
         });
-    }
-    else
-    {
-      this.service.editProduct(newProductJsonData)
-      .subscribe((data) => {
-        console.log(data);
-      });
+      }
     }
   }
+
+
+  notification = {
+    errorNotification: function(from, align){
+      
+      $['notify']({
+        icon: "pe-7s-info",
+        message: "Fields must not be empty."
+
+      },
+      {
+        type: 'danger',
+        timer: 20,
+        placement: {
+          from: from,
+          align: align
+        }
+      }); 
+    },
+    successNotification: function(from, align){
+      
+      $['notify']({
+        icon: "pe-7s-info",
+        message: "Entered Successfully."
+
+      },
+      {
+        type: 'success',
+        timer: 20,
+        placement: {
+          from: from,
+          align: align
+        }
+      }); 
+    }
+  }
+  
 }
